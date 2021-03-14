@@ -1,5 +1,5 @@
 import {AppBar, Button, makeStyles, Toolbar, Typography} from "@material-ui/core";
-import React from "react";
+import React, {FC} from "react";
 
 const useStyles = makeStyles({
   toolbar: {
@@ -9,16 +9,20 @@ const useStyles = makeStyles({
   }
 })
 
-export const Header = () => {
+interface IProps {
+  onNewComic(): void | Promise<void>
+}
+
+export const Header: FC<IProps> = ({onNewComic}) => {
   const classes = useStyles()
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar classes={{root: classes.toolbar}}>
         <Typography variant="h6">
           Masivian Comics
         </Typography>
-        <Button color="inherit">Nuevo comic</Button>
+        <Button color="inherit" onClick={onNewComic}>Nuevo comic</Button>
       </Toolbar>
     </AppBar>
   )

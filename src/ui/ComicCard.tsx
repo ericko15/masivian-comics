@@ -1,14 +1,12 @@
 import {Card, CardContent, CardHeader, makeStyles, Typography} from "@material-ui/core";
 import {Rating} from "@material-ui/lab";
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 
 const useStyles = makeStyles((theme) => ({
   imageContent: {
     position: 'relative',
-    paddingBottom: '56.2%',
   },
   image: {
-    position: 'absolute',
     objectFit: 'cover',
     width: '100%',
     height: '100%',
@@ -29,14 +27,17 @@ interface IProps {
   title: string
   subtitle: string
   image: string
-  score?: number
 }
 
-export const ComicCard: FC<IProps> = ({title, subtitle, image, score = 0}) => {
+export const ComicCard: FC<IProps> = ({title, subtitle, image}) => {
+  const [score, setScore] = useState(0)
 
   const classes = useStyles();
+
+  const handleChangeScore = (e: any, value: any) => setScore(value)
+
   return (
-    <Card classes={{root: classes.card}}>
+    <Card classes={{root: classes.card}} elevation={3}>
       <CardHeader title={title} subheader={subtitle}/>
       <CardContent>
         <div className={classes.imageContent}>
@@ -48,6 +49,7 @@ export const ComicCard: FC<IProps> = ({title, subtitle, image, score = 0}) => {
         <Rating
           name="score"
           value={score}
+          onChange={handleChangeScore}
         />
       </CardContent>
     </Card>
